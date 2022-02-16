@@ -1,4 +1,4 @@
-# staysafe-client
+# staysafe_vue-client
 
 ## Project setup
 ```

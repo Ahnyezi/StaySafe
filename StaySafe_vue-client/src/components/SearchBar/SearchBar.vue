@@ -1,42 +1,52 @@
 <template>
-  <div>
-    <input
-      v-model="searchWord"
-      :placeholder="placeholder"
-      @keypress="handleSearchWord"
-    />
-    <button @click="setSearchWord">검색</button>
-  </div>
+  <v-container>
+    <v-card class="d-flex justify-center">
+      <v-card>
+        <v-text-field
+          v-model="searchWord"
+          :label="label"
+          filled
+          rounded
+          dense
+          clearable
+          @keyup.enter="setSearchWord"
+        />
+      </v-card>
+      <v-card>
+        <v-btn @click="setSearchWord" icon color="indigo">
+          <v-icon>fas fa-search</v-icon>
+        </v-btn>
+      </v-card>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      searchWord: "",
-      placeholder: "복용 중인 약 이름을 입력하세요",
-    };
-  },
+  data: () => ({
+    searchWord: "",
+    label: "복용 중인 약 이름을 입력하세요",
+  }),
   methods: {
-    handleSearchWord({ keyCode }) {
-      const { text } = this;
-      console.log("text" + text);
-      if (keyCode === 13 && text !== "") {
-        this.$emit("getSearchWord", text);
-        console.log(text);
-      }
-    },
     setSearchWord() {
-      this.$emit("getSearchWord", this.searchWord);
-      this.searchWord = "";
+      const text = this.searchWord;
+      if (text !== null && text !== "") {
+        this.$emit("getSearchWord", text.trim());
+        this.searchWord = "";
+      }
     },
   },
   watch: {
     searchWord(text) {
-      this.$emit("getRealtimeSearchWord", text);
+      if (text !== null && text !== "") {
+        this.$emit("getRealtimeSearchWord", text.trim());
+      }
     },
   },
 };
 </script>
-
-<style></style>
+<style scoped>
+.v-text-field {
+  width: 500px;
+}
+</style>

@@ -1,15 +1,22 @@
 <template>
-  <div class="app">
-    <section></section>
-    <router-view />
-  </div>
+  <v-app>
+    <AppBar />
+    <v-main>
+      <router-view />
+    </v-main>
+    <Footer />
+  </v-app>
 </template>
 
 <script>
+import AppBar from "@/components/AppBar/AppBar";
+import Footer from "@/components/Footer/Footer";
+
 export default {
-  name: "app",
-  components: {},
+  name: "App",
+  components: {
+    AppBar,
+    Footer,
+  },
 };
 </script>
-
-<style></style>
